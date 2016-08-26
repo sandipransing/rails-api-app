@@ -9,7 +9,7 @@ gem 'puma', '~> 3.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'simple_command'
 gem 'jwt'
-gem 'swagger-docs', require: 'swagger/docs'
+gem 'swagger-blocks'
 gem 'pg'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'

@@ -1,13 +1,81 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
+  include Swagger::Blocks
 
-  swagger_controller :posts, "Posts"
+  swagger_path '/posts/{id}' do
+    operation :get do
+      key :description, 'Returns a single post if the user has access'
+      key :operationId, 'findPostbyId'
+      key :tags, [
+        'post'
+      ]
+      parameter do
+        key :name, :id
+        key :in, :path
+        key :description, 'ID of post to fetch'
+        key :required, true
+        key :type, :integer
+        key :format, :int64
+      end
+      response 200 do
+        key :description, 'post response'
+      end
+      response :default do
+        key :description, 'unexpected error'
+      end
+    end
+  end
 
-  swagger_api :index do
-    summary "Fetches all posts"
-    notes "This fetches all the posts"
-    response :unauthorized
-    response :not_acceptable
+  swagger_path '/posts' do
+    operation :get do
+      key :description, 'Returns all posts from the system that the user has access to'
+      key :operationId, 'findPosts'
+      key :produces, [
+        'application/json'
+      ]
+      key :tags, [
+        'post'
+      ]
+
+      response 200 do
+        key :description, 'post response'
+      end
+      response :default do
+        key :description, 'unexpected error'
+      end
+    end
+    operation :post do
+      key :description, 'Creates a new post'
+      key :operationId, 'addPost'
+      key :produces, [
+        'application/json'
+      ]
+      key :tags, [
+        'post'
+      ]
+      parameter do
+        key :name, :title
+        key :in, :formData
+        key :description, 'Post title'
+        key :type, :string
+        key :required, true
+      end
+
+      parameter do
+        key :name, :body
+        key :in, :formData
+        key :description, 'Content'
+        key :type, :string
+        key :required, true
+      end
+
+      response 200 do
+        key :description, 'post response'
+      end
+      response :default do
+        key :description, 'unexpected error'
+      end
+    end
   end
 
   # GET /posts
