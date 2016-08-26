@@ -1,6 +1,15 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
 
+  swagger_controller :posts, "Posts"
+
+  swagger_api :index do
+    summary "Fetches all posts"
+    notes "This fetches all the posts"
+    response :unauthorized
+    response :not_acceptable
+  end
+
   # GET /posts
   def index
     @posts = Post.all
