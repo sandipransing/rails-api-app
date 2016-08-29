@@ -1,24 +1,31 @@
-# README
+# Rails api app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This rails 5 api only app will help to get started with rails api's in no time.
+This app includes JWT based user authentication along-with setup for swagger 2.0 documentation for rails api's.
 
-Things you may want to cover:
+Things to do before launching:
 
-* Ruby version
+* Git clone
+```
+git clone https://github.com/sandipransing/rails-api-app.git
+```
+* GEM Bundle
+```
+bundle install
+```
+* Migrations
+```
+rake db:migrate
+```
+* Starting Server
+```
+rails s
+```
+* Create sample user 
+```
+User.create!(email: 'example@mail.com' , password: '212121')
+```
 
-* System dependencies
+* Documentation 
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+> http://localhost:3000/swagger/dist/index.html?url=/apidocs
