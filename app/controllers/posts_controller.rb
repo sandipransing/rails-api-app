@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :set_user
   before_action :set_post, only: [:show, :update, :destroy]
   include Swagger::Blocks
 
@@ -80,7 +81,7 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = @user.posts.all
 
     render json: @posts
   end
@@ -92,7 +93,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = Post.new(post_params)
+    @post = @user.posts.new(post_params)
 
     if @post.save
       render json: @post, status: :created, location: @post
@@ -118,11 +119,15 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = Post.find(params[:id])
+      @post = @user.posts.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:title, :body, :user_id)
+      params.permit(:title, :body)
+    end
+
+    def set_user
+      @user = current_user
     end
 end
